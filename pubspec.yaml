@@ -1,0 +1,31 @@
+name: rompiendo_generos
+description: A Flutter project for 'Rompiendo Generos'.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  gradient_app_bar: ^0.0.1
+  flutter:
+    sdk: flutter
+  #firebase_database: ^4.3.0
+  cupertino_icons: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: "^0.8.0"
+
+flutter_icons:
+  image_path: "assets/icon/logo.png"
+  android: true
+  ios: true
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
