@@ -9,6 +9,13 @@ class LogInPage extends StatefulWidget {
 }
 
 class _LogInPageState extends State<LogInPage> {
+  // Controladores de los textfield
+  final user = TextEditingController();
+  final passwd = TextEditingController();
+  // Variables donde se alamacenaran los datos ingresados a los textfield
+  String userText = '';
+  String passwdText = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,79 +49,90 @@ class _LogInPageState extends State<LogInPage> {
       ),
     );
   }
-}
 
-Widget _userTextField() {
-  return StreamBuilder(
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 30,
-        ),
-        child: TextField(
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            icon: Icon(
-              Icons.email,
-            ),
-            hintText: "user/example@domain.com",
-            labelText: "Usuario/Correo Electrónico",
+  Widget _userTextField() {
+    return StreamBuilder(
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 30,
           ),
-        ),
-      );
-    },
-  );
-}
+          child: TextField(
+            controller: user,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              icon: Icon(
+                Icons.email,
+              ),
+              hintText: "user/example@domain.com",
+              labelText: "Usuario/Correo Electrónico",
+            ),
+            onChanged: (value) {},
+          ),
+        );
+      },
+    );
+  }
 
-Widget _passwdTextField() {
-  return StreamBuilder(
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 30,
-        ),
-        child: TextField(
-          keyboardType: TextInputType.emailAddress,
-          obscureText: true,
-          decoration: InputDecoration(
-            icon: Icon(
-              Icons.lock,
-            ),
-            hintText: "Contraseña",
-            labelText: "Contraseña",
+  Widget _passwdTextField() {
+    return StreamBuilder(
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 30,
           ),
-        ),
-      );
-    },
-  );
-}
+          child: TextField(
+            controller: passwd,
+            keyboardType: TextInputType.emailAddress,
+            obscureText: true,
+            decoration: InputDecoration(
+              icon: Icon(
+                Icons.lock,
+              ),
+              hintText: "Contraseña",
+              labelText: "Contraseña",
+            ),
+            onChanged: (value) {},
+          ),
+        );
+      },
+    );
+  }
 
-Widget _buttonLogin() {
-  return StreamBuilder(
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return RaisedButton(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-          child: Text(
-            'Iniciar Sesión',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+  Widget _buttonLogin() {
+    return StreamBuilder(
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return RaisedButton(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+            child: Text(
+              'Iniciar Sesión',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            20.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              20.0,
+            ),
           ),
-        ),
-        elevation: 15.0,
-        color: Colors.cyan[200],
-        onPressed: () {
-          Navigator.of(context).pushNamed("/PanelOfCategories");
-        },
-      );
-    },
-  );
+          elevation: 15.0,
+          color: Colors.cyan[200],
+          onPressed: () {
+            userText = user.text;
+            passwdText = passwd.text;
+            if (userText.toLowerCase() == 'admin') {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/PanelOfCategories',
+                (route) => false,
+              );
+            } else {}
+          },
+        );
+      },
+    );
+  }
 }

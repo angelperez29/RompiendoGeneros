@@ -50,7 +50,7 @@ class CardCategories extends StatelessWidget {
         ],
       ),
       elevation: 15.0,
-      color: Color.fromARGB(239, 196, 230, 240),
+      color: Color.fromARGB(239, 239, 239, 238),
     );
   }
 }
