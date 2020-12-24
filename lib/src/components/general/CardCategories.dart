@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CardCategories extends StatelessWidget {
   final String path;
   final String text;
-  final String screen;
+  final String categorie;
   final String route;
 
   const CardCategories({
@@ -11,7 +11,7 @@ class CardCategories extends StatelessWidget {
     @required this.path,
     @required this.text,
     @required this.route,
-    @required this.screen,
+    @required this.categorie,
   }) : super(key: key);
 
   @override
@@ -41,7 +41,7 @@ class CardCategories extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               _buttonEdit(
-                this.screen,
+                this.categorie,
                 this.route,
                 this.text,
               ),
@@ -55,7 +55,7 @@ class CardCategories extends StatelessWidget {
   }
 }
 
-Widget _buttonEdit(String screen, String route, String text) {
+Widget _buttonEdit(String categorie, String route, String text) {
   return StreamBuilder(
     builder: (BuildContext context, AsyncSnapshot snapshot) {
       return IconButton(
@@ -68,7 +68,7 @@ Widget _buttonEdit(String screen, String route, String text) {
           Navigator.of(context).pushNamed(
             route,
             arguments: {
-              'screen': screen,
+              'categorie': categorie,
               'userPrd': text,
             },
           );

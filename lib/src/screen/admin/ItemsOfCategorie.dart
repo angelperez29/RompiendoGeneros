@@ -10,7 +10,8 @@ class ItemsOfCategorie extends StatefulWidget {
 class _ItemsOfCategorieState extends State<ItemsOfCategorie> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-    );
+    Map argumentsScreen = ModalRoute.of(context).settings.arguments;
+    if(argumentsScreen['']){}
+    return Container();
   }
 }

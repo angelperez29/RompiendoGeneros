@@ -127,7 +127,7 @@ class _LogInPageState extends State<LogInPage> {
             if (userText.toLowerCase() == 'admin') {
               Navigator.of(context).pushNamedAndRemoveUntil(
                 '/PanelOfCategories',
-                (route) => false,
+                (Route<dynamic> route) => false,
               );
             } else {}
           },

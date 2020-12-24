@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rompiendo_generos/src/components/general/Background.dart';
+import 'package:rompiendo_generos/src/components/general/Buttons.dart';
 import 'package:rompiendo_generos/src/components/general/CardCategories.dart';
 
 class PanelOfCategories extends StatefulWidget {
@@ -26,67 +27,70 @@ class _PanelOfCategoriesState extends State<PanelOfCategories> {
               path: 'assets/images/personal.png',
               text: 'Personal',
               route: '/ItemsOfCategorie',
-              screen: 'Personal',
+              categorie: 'Personal',
             ),
             CardCategories(
               path: 'assets/images/comercial.png',
               text: 'Lo más comercial',
               route: '/ItemsOfCategorie',
-              screen: 'Lo más comercial',
+              categorie: 'Lo más comercial',
             ),
             CardCategories(
               path: 'assets/images/cocteleria.png',
               text: 'Coctelería',
               route: '/ItemsOfCategorie',
-              screen: 'Coctelería',
+              categorie: 'Coctelería',
             ),
             CardCategories(
               path: 'assets/images/copa.png',
               text: 'Copas',
               route: '/ItemsOfCategorie',
-              screen: 'Copas',
+              categorie: 'Copas',
             ),
             CardCategories(
               path: 'assets/images/wine.png',
               text: 'Botellas',
               route: '/ItemsOfCategorie',
-              screen: 'Botellas',
+              categorie: 'Botellas',
             ),
             CardCategories(
               path: 'assets/images/bebidasSinAlcohol.png',
               text: 'Bebidas sin alcohol',
               route: '/ItemsOfCategorie',
-              screen: 'Bebidas sin alcohol',
+              categorie: 'Bebidas sin alcohol',
             ),
             CardCategories(
               path: 'assets/images/coffee.png',
               text: 'Bebidas calientes',
               route: '/ItemsOfCategorie',
-              screen: 'Bebidas calientes',
+              categorie: 'Bebidas calientes',
             ),
             CardCategories(
               path: 'assets/images/food.png',
               text: 'Botanas y antojitos',
               route: '/ItemsOfCategorie',
-              screen: 'Botanas y antojitos',
+              categorie: 'Botanas y antojitos',
             ),
             CardCategories(
               path: 'assets/images/promociones.png',
               text: 'Promociones',
               route: '/ItemsOfCategorie',
-              screen: 'Promociones',
+              categorie: 'Promociones',
             ),
             CardCategories(
               path: 'assets/images/copaRota.png',
               text: 'En caso de romper cristalería',
               route: '/ItemsOfCategorie',
-              screen: 'En caso de romper cristalería',
+              categorie: 'En caso de romper cristalería',
             ),
           ],
         ),
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: BottomFloatingExit(
+        route: '/Login',
+      ),
     );
   }
 }
