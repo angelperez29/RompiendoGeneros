@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'dart:ui';
 
 BoxDecoration background() {
   return BoxDecoration(
@@ -46,5 +47,16 @@ GradientAppBar gradientAppBar(String msg) {
     elevation: 15.0,
     backgroundColorStart: Color.fromARGB(221, 140, 222, 219),
     backgroundColorEnd: Color.fromARGB(249, 158, 250, 221),
+  );
+}
+
+BoxDecoration backgroundImageBlur() {
+  return BoxDecoration(
+    image: DecorationImage(
+      image: ExactAssetImage(
+        'assets/images/rgcb30g.png',
+      ),
+      fit: BoxFit.cover,
+    ),
   );
 }

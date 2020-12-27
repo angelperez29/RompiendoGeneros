@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:rompiendo_generos/src/components/general/Background.dart';
 
@@ -22,29 +24,42 @@ class _LogInPageState extends State<LogInPage> {
       appBar: appbar(""),
       extendBodyBehindAppBar: true,
       body: Container(
-        decoration: background(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
-              child: Image.asset(
-                "assets/images/login.png",
-                height: 250,
+        decoration: backgroundImageBlur(),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 10.0,
+            sigmaY: 10.0,
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(
+                0.0,
               ),
             ),
-            SizedBox(
-              height: 20,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Image.asset(
+                    "assets/images/login.png",
+                    height: 250,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                _userTextField(),
+                SizedBox(
+                  height: 20,
+                ),
+                _passwdTextField(),
+                SizedBox(
+                  height: 40,
+                ),
+                _buttonLogin(),
+              ],
             ),
-            _userTextField(),
-            SizedBox(
-              height: 20,
-            ),
-            _passwdTextField(),
-            SizedBox(
-              height: 40,
-            ),
-            _buttonLogin(),
-          ],
+          ),
         ),
       ),
     );
@@ -129,7 +144,12 @@ class _LogInPageState extends State<LogInPage> {
                 '/PanelOfCategories',
                 (Route<dynamic> route) => false,
               );
-            } else {}
+            } else {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/SelectAddclient',
+                (Route<dynamic> route) => false,
+              );
+            }
           },
         );
       },

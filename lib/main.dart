@@ -10,10 +10,8 @@ import 'src/screen/admin/EditItems.dart';
 import 'src/screen/waiters/SelectAddClient.dart';
 import 'src/screen/waiters/SelectCategorie.dart';
 import 'src/screen/waiters/InputOrder.dart';
-import 'src/screen/waiters/ConfirmOrder.dart';
 
 void main() => runApp(MyApp());
-
 
 class MyApp extends StatelessWidget {
   @override
@@ -22,9 +20,7 @@ class MyApp extends StatelessWidget {
       // Eliminamos la etiqueta de modo prueba
       debugShowCheckedModeBanner: false,
       title: "Rompiendo Géneros'",
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity
-      ),
+      theme: ThemeData(visualDensity: VisualDensity.adaptivePlatformDensity),
       // Rutas a pantallas
       routes: {
         '/Login': (context) => LogInPage(),
@@ -37,7 +33,6 @@ class MyApp extends StatelessWidget {
         '/SelectAddclient': (context) => SelectAddClient(),
         '/SelectCategorie': (context) => SelectCategorie(),
         '/InputOrder': (context) => InputOrder(),
-        '/ConfirmOrder': (context) => ConfirmOrder(),
       },
       // Pantalla inicial
       initialRoute: '/Login',

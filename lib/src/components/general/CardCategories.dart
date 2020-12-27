@@ -60,7 +60,7 @@ Widget _buttonEdit(String categorie, String route, String text) {
     builder: (BuildContext context, AsyncSnapshot snapshot) {
       return IconButton(
         icon: Icon(
-          Icons.edit,
+          Icons.arrow_forward_ios,
         ),
         iconSize: 30,
         tooltip: "Administrar",
