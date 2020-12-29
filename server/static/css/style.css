@@ -1,0 +1,16 @@
+body {
+    background-color: rgba(234, 245, 237, 0.796);
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+h1 {
+    font-size: xx-large;
+    text-align: center;
+    color: rgb(103, 144, 206);
+}

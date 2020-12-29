@@ -1,27 +1,121 @@
 from pymongo import MongoClient
 
-# Dirección en la cual se encuentra MongoDB
+# URL con la que hacemos la conexión con MongoDB
 MONGO_URI = "mongodb://127.0.0.1"
-# Cliente con el que nos conectarems a MongoDB
+# Cliente con el que nos conectaremos con MongoDB
 client = MongoClient(MONGO_URI)
 # Base de datos a utilizar
 db = client["rgcb"]
+# Definimos la colección de empleados
+collectionEmployes = db["employees"]
+# Definimos la colección de productos
+collectionProducts = db["products"]
+# Definimos la colección de clientes
+collectionClients = db["clients"]
+# Definimos la colección de ordenes
+collectionOrders = db["orders"]
+
+# APARTADO GENERAL
 
 
+# Retornamos los documentos asociados a la colección solicitada
 def getData(col):
     # Una colección es similar a un table en mysql
     collection = db[col]
-    collections = collection.find()
-    return collections
+    documents = collection.find()
+    return documents
 
 
+# APARTADO PARA EMPELADOS
+
+
+# Función para guardar nuevos empleados en la DB
 def setDataEmployees(user, email, passwd, rol):
-    collection = db["personal"]
-    collection.insert_one(
+    collectionEmployes.insert_one(
         {
             "user": user,
             "email": email,
             "passwd": passwd,
             "rol": rol,
         }
+    )
+
+
+# Función para bucar un solo documento de empleados
+def findEmployee(user, email):
+    document = collectionEmployes.find_one(
+        {
+            "user": user,
+            "email": email,
+        }
+    )
+    return document
+
+
+# Función para actualizar los datos de los empleados
+def updateEmployees(id, user, email, passwd, rol):
+    collectionEmployes.update_one(
+        {
+            "_id": id,
+        },
+        {
+            "set": {
+                "_id": id,
+                "user": user,
+                "email": email,
+                "passwd": passwd,
+                "rol": rol,
+            }
+        },
+    )
+
+
+# APARTADO PARA PRODUCTOS
+
+
+def setDataProduct(product, categorie):
+    collectionProducts.insert_one(
+        {
+            "produtc": product,
+            "categorie": categorie,
+        }
+    )
+
+
+def findProduct(product, categorie):
+    collectionProducts.find_one(
+        {
+            "product": product,
+            "categorie": categorie,
+        }
+    )
+
+
+def updateProduct(id, product, categorie):
+    collectionProducts.update_one(
+        {
+            "_id": id,
+        },
+        {
+            "set": {
+                "_id": id,
+                "product": product,
+                "categorie": categorie,
+            }
+        },
+    )
+
+
+# APARTADO DE CLIENTES
+
+# Función para insertar nuevos clientes a la colección
+def insertClient(name, table, hourStart, hourEnd, waiters):
+    collectionClients.insert_one(
+        {
+            "name": name,
+            "table": table,
+            "hourStart": hourStart,
+            "hourEnd": hourEnd,
+            "waiters": waiters,
+        },
     )

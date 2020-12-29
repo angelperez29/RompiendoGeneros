@@ -43,3 +43,6 @@ app.*.map.json
 
 # test file
 aux_file.py
+
+# Config file for VS Code
+.vscode

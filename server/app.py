@@ -9,6 +9,7 @@ from bson import json_util
 
 app = Flask(__name__)
 
+
 # Ruta principal
 @app.route("/")
 def index():
@@ -32,10 +33,9 @@ def getEmployees(categorie):
 # RUTAS PARA EMPLEADOS
 
 # Ruta para agregar empleados
-# De una petición POST se obtiene un JSON el que contiene
-# al user, email, password y rol del empleado dentro del
-# local los cuales serán almacenados en un documento dentro
-# de la colección llamada personal
+# De una petición POST se obtiene un JSON el que contiene al user, email, password y rol
+# del empleado dentro del local los cuales serán almacenados en un documento dentro de
+# la colección llamada personal
 @app.route("/addEmployes", methods=["POST"])
 def addEmployees():
     # Datos recibidos desde post
@@ -47,9 +47,8 @@ def addEmployees():
     return "Hecho "
 
 
-# En caso de que el admin tenga un error al momento de
-# agregar un nuevo empleado, este podrá realizar los cambios
-# por medio de esta ruta
+# En caso de que el admin tenga un error al momento de agregar un nuevo empleado, este
+# podrá realizar los cambios por medio de esta ruta
 @app.route("/updateEmployees", methods=["POST"])
 def updateEmployees():
     pass
