@@ -3,20 +3,22 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Index of page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
-    <div>
-        <h1>
-            This WebService is owned by: <br> Rompiendo Genéros Coffee and Beer
-        </h1>
-    </div>
-
-    <div class="center">
-        <img src="{{ url_for('static', filename='images/login.png') }}" alt="">
+    <div class="background-image">
+        <div class="background-text">
+            <h1>
+                This WebService is owned by:
+            </h1>
+            <img class="logo_r" src="{{ url_for('static', filename='images/login.png')}}" alt="RompiendoGeneros" width="600" height="400">
+            <h2>
+                <a class="textTo" href="/admin">Go to Administration</a>
+            </h2>
+        </div>
     </div>
 </body>
 

@@ -36,7 +36,7 @@ def getEmployees(categorie):
 # De una petición POST se obtiene un JSON el que contiene al user, email, password y rol
 # del empleado dentro del local los cuales serán almacenados en un documento dentro de
 # la colección llamada personal
-@app.route("/addEmployes", methods=["POST"])
+@app.route("/addEmployees", methods=["POST"])
 def addEmployees():
     # Datos recibidos desde post
     user = request.json["user"]
@@ -57,3 +57,11 @@ def updateEmployees():
 @app.route("/employeeResigns", methods=["POST"])
 def method_name():
     pass
+
+
+if __name__ == "__main__":
+    app.run(
+        host="0.0.0.0",
+        port=8000,
+        debug=True,
+    )

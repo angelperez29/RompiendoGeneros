@@ -15,9 +15,8 @@ collectionClients = db["clients"]
 # Definimos la colección de ordenes
 collectionOrders = db["orders"]
 
+
 # APARTADO GENERAL
-
-
 # Retornamos los documentos asociados a la colección solicitada
 def getData(col):
     # Una colección es similar a un table en mysql
@@ -27,8 +26,6 @@ def getData(col):
 
 
 # APARTADO PARA EMPELADOS
-
-
 # Función para guardar nuevos empleados en la DB
 def setDataEmployees(user, email, passwd, rol):
     collectionEmployes.insert_one(
@@ -71,8 +68,8 @@ def updateEmployees(id, user, email, passwd, rol):
 
 
 # APARTADO PARA PRODUCTOS
-
-
+# Función para almacenar nuevos documentos dentro de las colección de productos
+# esta función recibe como parametros el nombre del producto y la categoria
 def setDataProduct(product, categorie):
     collectionProducts.insert_one(
         {
@@ -82,6 +79,8 @@ def setDataProduct(product, categorie):
     )
 
 
+# Función para buscar algún producto dentro de la colección de productos
+# esta recibe como parametros el nombre y la categoria
 def findProduct(product, categorie):
     collectionProducts.find_one(
         {
@@ -91,6 +90,9 @@ def findProduct(product, categorie):
     )
 
 
+# Funcíon para actualizar informacioón de los productos esta recibe como
+# parametro el id del producto a actualizar ademas del nombre del producto
+# y la categoria
 def updateProduct(id, product, categorie):
     collectionProducts.update_one(
         {
@@ -107,7 +109,6 @@ def updateProduct(id, product, categorie):
 
 
 # APARTADO DE CLIENTES
-
 # Función para insertar nuevos clientes a la colección
 def insertClient(name, table, hourStart, hourEnd, waiters):
     collectionClients.insert_one(
@@ -118,4 +119,14 @@ def insertClient(name, table, hourStart, hourEnd, waiters):
             "hourEnd": hourEnd,
             "waiters": waiters,
         },
+    )
+
+
+# Función para buscar un cliente
+def findClient(name, table):
+    collectionClients.find_one(
+        {
+            "name": name,
+            "table": table,
+        }
     )
