@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-// Pantalla para inicio de sesión
+// Screen para inicio de sesión
 import 'src/screen/LogInPage.dart';
-// Pantalla para administradores
+// Screen para administradores
 import 'src/screen/admin/PanelOfCategories.dart';
 import 'src/screen/admin/ItemsOfCategorie.dart';
 import 'src/screen/admin/AddCategorie.dart';
 import 'src/screen/admin/EditItems.dart';
-// Pantallas para meseros
+// Screen para meseros
 import 'src/screen/waiters/SelectAddClient.dart';
 import 'src/screen/waiters/SelectCategorie.dart';
 import 'src/screen/waiters/InputOrder.dart';
+// Screen para información de la app o desarrollador
+import 'src/screen/dev/About.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
         '/SelectAddclient': (context) => SelectAddClient(),
         '/SelectCategorie': (context) => SelectCategorie(),
         '/InputOrder': (context) => InputOrder(),
+        // Developer
+        '/About': (context) => About(),
       },
       // Pantalla inicial
       initialRoute: '/Login',

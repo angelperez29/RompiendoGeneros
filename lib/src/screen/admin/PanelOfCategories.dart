@@ -1,9 +1,8 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:rompiendo_generos/src/components/general/Background.dart';
-import 'package:rompiendo_generos/src/components/general/Buttons.dart';
 import 'package:rompiendo_generos/src/components/general/CardCategories.dart';
+import 'package:rompiendo_generos/src/components/general/NavDrawer.dart';
 
 class PanelOfCategories extends StatefulWidget {
   PanelOfCategories({Key key}) : super(key: key);
@@ -16,6 +15,7 @@ class _PanelOfCategoriesState extends State<PanelOfCategories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: gradientAppBar("Panel de administración"),
       body: Container(
         decoration: background(),
@@ -31,9 +31,11 @@ class _PanelOfCategoriesState extends State<PanelOfCategories> {
               ),
             ),
             child: GridView.count(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: 25.0,
+              ),
               crossAxisCount: 1,
-              childAspectRatio: 2.6,
+              childAspectRatio: 2.1,
               children: <Widget>[
                 // Tarjetas de las categorias
                 CardCategories(
@@ -112,11 +114,6 @@ class _PanelOfCategoriesState extends State<PanelOfCategories> {
             ),
           ),
         ),
-      ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterFloat,
-      floatingActionButton: BottomFloatingExit(
-        route: '/Login',
       ),
     );
   }

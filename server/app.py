@@ -22,8 +22,8 @@ def admin():
 
 
 # Rutas para obtener todos empleados o productos
-@app.route("/getEmployees/<categorie>", methods=["GET"])
-def getEmployees(categorie):
+@app.route("/getDataDB/<categorie>", methods=["GET"])
+def getDataDB(categorie):
     categorie.lower()
     colls = getData(categorie)
     data = json_util.dumps(colls)

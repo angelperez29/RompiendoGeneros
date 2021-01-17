@@ -44,6 +44,7 @@ class CardCategories extends StatelessWidget {
                 this.categorie,
                 this.route,
                 this.text,
+                this.path,
               ),
             ],
           ),
@@ -55,7 +56,12 @@ class CardCategories extends StatelessWidget {
   }
 }
 
-Widget _buttonEdit(String categorie, String route, String text) {
+Widget _buttonEdit(
+  String categorie,
+  String route,
+  String text,
+  String pathIcon,
+) {
   return StreamBuilder(
     builder: (BuildContext context, AsyncSnapshot snapshot) {
       return IconButton(
@@ -70,6 +76,7 @@ Widget _buttonEdit(String categorie, String route, String text) {
             arguments: {
               'categorie': categorie,
               'userPrd': text,
+              'pathIcon': pathIcon,
             },
           );
         },

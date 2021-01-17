@@ -23,7 +23,7 @@ class _LogInPageState extends State<LogInPage> {
       appBar: appbar(""),
       extendBodyBehindAppBar: true,
       body: Container(
-        decoration: backgroundImageBlur(),
+        decoration: background(),
         child: BackdropFilter(
           filter: ImageFilter.blur(
             sigmaX: 10.0,

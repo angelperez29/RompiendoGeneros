@@ -34,6 +34,7 @@ def setDataEmployees(user, email, passwd, rol):
             "email": email,
             "passwd": passwd,
             "rol": rol,
+
         }
     )
 
@@ -50,7 +51,7 @@ def findEmployee(user, email):
 
 
 # Función para actualizar los datos de los empleados
-def updateEmployees(id, user, email, passwd, rol):
+def updateEmployees(id, user, email, passwd, rol, status):
     collectionEmployes.update_one(
         {
             "_id": id,
@@ -62,6 +63,7 @@ def updateEmployees(id, user, email, passwd, rol):
                 "email": email,
                 "passwd": passwd,
                 "rol": rol,
+                "status":staus,
             }
         },
     )

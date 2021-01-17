@@ -8,13 +8,15 @@ BoxDecoration background() {
       begin: Alignment.topRight,
       end: Alignment.bottomLeft,
       colors: [
+        Color.fromARGB(244, 238, 154, 255),
         Color.fromARGB(255, 255, 255, 255),
         Color.fromARGB(244, 127, 227, 245),
         Color.fromARGB(244, 238, 154, 255),
       ],
       stops: [
+        0.0,
         0.2,
-        0.7,
+        0.8,
         0.9,
       ],
     ),
@@ -45,8 +47,8 @@ GradientAppBar gradientAppBar(String msg) {
       ),
     ),
     elevation: 15.0,
-    backgroundColorStart: Color.fromARGB(221, 140, 222, 219),
-    backgroundColorEnd: Color.fromARGB(249, 158, 250, 221),
+    backgroundColorEnd: Color.fromARGB(221, 140, 222, 219),
+    backgroundColorStart: Color.fromARGB(255, 255, 255, 255),
   );
 }
 
