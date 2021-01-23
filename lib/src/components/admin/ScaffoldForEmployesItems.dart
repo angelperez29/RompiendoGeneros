@@ -68,7 +68,7 @@ class ScaffoldForEmployesItems extends StatelessWidget {
       floatingActionButton: BottonFloatingAdd(
         route: '/EditItems',
         categorie: argumentsScreen['categorie'],
-        usrPrd: argumentsScreen['categorie'],
+        usrPrd: 'Agregando...',
       ),
     );
   }

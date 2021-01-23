@@ -23,8 +23,8 @@ class BottonFloatingAdd extends StatelessWidget {
         Navigator.of(context).pushNamed(
           route,
           arguments: {
-            'screen': categorie,
-            'usrPrd': usrPrd,
+            'categorie': categorie,
+            'text': usrPrd,
           },
         );
       },

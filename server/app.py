@@ -39,12 +39,14 @@ def getDataDB(categorie):
 @app.route("/addEmployees", methods=["POST"])
 def addEmployees():
     # Datos recibidos desde post
-    user = request.json["user"]
-    mail = request.json["mail"]
-    passwd = request.json["passwd"]
-    rol = request.json["rol"]
-    setDataEmployees(user, mail, passwd, rol)
-    return "Hecho "
+    if request.method == 'POST':
+        name = request.json["name"]
+        user = request.json["user"]
+        email = request.json["email"]
+        passwd = request.json["passwd"]
+        rol = request.json["rol"]
+        setDataEmployees(name, user, email, passwd, rol)
+    return "202 ok "
 
 
 # En caso de que el admin tenga un error al momento de agregar un nuevo empleado, este

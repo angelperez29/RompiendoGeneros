@@ -7,7 +7,7 @@ client = MongoClient(MONGO_URI)
 # Base de datos a utilizar
 db = client["rgcb"]
 # Definimos la colección de empleados
-collectionEmployes = db["employees"]
+collectionEmployees = db["employees"]
 # Definimos la colección de productos
 collectionProducts = db["products"]
 # Definimos la colección de clientes
@@ -27,9 +27,11 @@ def getData(col):
 
 # APARTADO PARA EMPELADOS
 # Función para guardar nuevos empleados en la DB
-def setDataEmployees(user, email, passwd, rol):
-    collectionEmployes.insert_one(
+def setDataEmployees(name, user ,email, passwd, rol):
+    collectionEmployees.insert_one(
         {
+            "_id":user,
+            "name":name,
             "user": user,
             "email": email,
             "passwd": passwd,

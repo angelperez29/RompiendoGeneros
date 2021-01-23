@@ -71,7 +71,7 @@ Widget _buttonEdit(
             route,
             arguments: {
               'categorie': categorie,
-              'userPrd': text,
+              'text': text,
               'pathIcon': pathIcon,
             },
           );
