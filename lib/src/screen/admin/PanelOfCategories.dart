@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:rompiendo_generos/src/components/general/Background.dart';
-import 'package:rompiendo_generos/src/components/general/CardCategories.dart';
-import 'package:rompiendo_generos/src/components/general/NavDrawer.dart';
+import 'package:rompiendo_generos/src/components/widgets/Background.dart';
+import 'package:rompiendo_generos/src/components/widgets/CardCategories.dart';
+import 'package:rompiendo_generos/src/components/widgets/NavDrawer.dart';
 
 class PanelOfCategories extends StatefulWidget {
   PanelOfCategories({Key key}) : super(key: key);

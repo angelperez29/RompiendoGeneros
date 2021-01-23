@@ -47,8 +47,8 @@ GradientAppBar gradientAppBar(String msg) {
       ),
     ),
     elevation: 15.0,
-    backgroundColorEnd: Color.fromARGB(221, 140, 222, 219),
-    backgroundColorStart: Color.fromARGB(255, 255, 255, 255),
+    backgroundColorStart: Color.fromARGB(221, 140, 222, 219),
+    backgroundColorEnd: Color.fromARGB(255, 255, 255, 255),
   );
 }
 

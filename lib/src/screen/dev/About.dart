@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rompiendo_generos/src/components/general/Background.dart';
-import 'package:rompiendo_generos/src/components/general/NavDrawer.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:rompiendo_generos/src/components/widgets/Background.dart';
+import 'package:rompiendo_generos/src/components/widgets/NavDrawer.dart';
 
 class About extends StatefulWidget {
   About({Key key}) : super(key: key);
@@ -12,44 +10,29 @@ class About extends StatefulWidget {
 }
 
 class _AboutState extends State<About> {
-  List data;
-  List usersData;
-  String url = 'http://10.0.0.34:8000/getDataDB/employees';
-  getData() async {
-    http.Response response = await http.get(url);
-    data = json.decode(response.body);
-    setState(
-      () {
-        usersData = data;
-      },
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Side menu
       drawer: NavDrawer(),
       appBar: gradientAppBar("Acerca"),
-      body: ListView.builder(
-        itemCount: usersData == null ? 0 : usersData.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Card(
-            child: Row(
-              children: <Widget>[
-                Text('${usersData[index]['user']}'),
-                Text('${usersData[index]['email']}'),
-                Text('${usersData[index]['passwd']}'),
-                Text('${usersData[index]['rol']}'),
-              ],
+      body: Container(
+        decoration: background(),
+        child: Center(
+          child: Text(
+            'Acerca del desarrollador\n' +
+                'Florentino Ángel Pérez Arce\n' +
+                'Contacto: \n' +
+                'Email: dev.angel.p@gmail.com\n' +
+                'LinkedIn: Florentino Ángel Pérez Arce\n',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[800],
             ),
-          );
-        },
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }

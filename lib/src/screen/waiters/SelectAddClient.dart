@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:rompiendo_generos/src/components/general/Background.dart';
-import 'package:rompiendo_generos/src/components/general/Buttons.dart';
+import 'package:rompiendo_generos/src/components/widgets/Background.dart';
+import 'package:rompiendo_generos/src/components/widgets/Buttons.dart';
 
 class SelectAddClient extends StatefulWidget {
   SelectAddClient({Key key}) : super(key: key);

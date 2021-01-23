@@ -1,9 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:rompiendo_generos/src/components/general/Background.dart';
-import 'package:rompiendo_generos/src/components/general/CardCategories.dart';
-import 'package:rompiendo_generos/src/components/general/Buttons.dart';
-import 'package:rompiendo_generos/src/components/general/NavDrawer.dart';
+import 'package:rompiendo_generos/src/components/widgets/Background.dart';
+import 'package:rompiendo_generos/src/components/widgets/CardCategories.dart';
+import 'package:rompiendo_generos/src/components/widgets/Buttons.dart';
+import 'package:rompiendo_generos/src/components/widgets/NavDrawer.dart';
 
 class ScaffoldForEmployesItems extends StatelessWidget {
   const ScaffoldForEmployesItems({
@@ -44,19 +44,19 @@ class ScaffoldForEmployesItems extends StatelessWidget {
                   path: argumentsScreen['pathIcon'],
                   text: 'Angel',
                   route: '/EditItems',
-                  categorie: 'Angel',
+                  categorie: 'Personal',
                 ),
                 CardCategories(
                   path: argumentsScreen['pathIcon'],
                   text: 'Beto',
                   route: '/EditItems',
-                  categorie: 'Beto',
+                  categorie: 'Personal',
                 ),
                 CardCategories(
                   path: argumentsScreen['pathIcon'],
                   text: 'Mony',
                   route: '/EditItems',
-                  categorie: 'Mony',
+                  categorie: 'Personal',
                 ),
               ],
             ),

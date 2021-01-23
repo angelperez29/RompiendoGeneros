@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:rompiendo_generos/src/components/general/Background.dart';
+import 'package:rompiendo_generos/src/components/widgets/Background.dart';
 
 class LogInPage extends StatefulWidget {
   LogInPage({Key key}) : super(key: key);
@@ -41,11 +41,12 @@ class _LogInPageState extends State<LogInPage> {
                 Flexible(
                   child: Image.asset(
                     "assets/images/login.png",
-                    height: 250,
+                    height: 200,
+                    fit: BoxFit.scaleDown,
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 50,
                 ),
                 _userTextField(),
                 SizedBox(

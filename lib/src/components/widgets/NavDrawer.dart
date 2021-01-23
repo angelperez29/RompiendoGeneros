@@ -24,8 +24,8 @@ class NavDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.input),
-            title: Text('Cambiar Contraseña'),
+            leading: Icon(Icons.home),
+            title: Text('Home'),
             onTap: () => {},
           ),
           ListTile(

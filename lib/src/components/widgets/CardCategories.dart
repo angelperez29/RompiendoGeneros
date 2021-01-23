@@ -57,16 +57,12 @@ class CardCategories extends StatelessWidget {
 }
 
 Widget _buttonEdit(
-  String categorie,
-  String route,
-  String text,
-  String pathIcon,
-) {
+    String categorie, String route, String text, String pathIcon) {
   return StreamBuilder(
     builder: (BuildContext context, AsyncSnapshot snapshot) {
       return IconButton(
         icon: Icon(
-          Icons.arrow_forward_ios,
+          Icons.arrow_right_alt_rounded,
         ),
         iconSize: 30,
         tooltip: "Administrar",
