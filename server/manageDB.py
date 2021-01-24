@@ -27,23 +27,22 @@ def getData(col):
 
 # APARTADO PARA EMPELADOS
 # Función para guardar nuevos empleados en la DB
-def setDataEmployees(name, user ,email, passwd, rol):
+def setDataEmployees(name, user, email, passwd, rol):
     collectionEmployees.insert_one(
         {
-            "_id":user,
-            "name":name,
+            "_id": user,
+            "name": name,
             "user": user,
             "email": email,
             "passwd": passwd,
             "rol": rol,
-
         }
     )
 
 
 # Función para bucar un solo documento de empleados
 def findEmployee(user, email):
-    document = collectionEmployes.find_one(
+    document = collectionEmployees.find_one(
         {
             "user": user,
             "email": email,
@@ -54,7 +53,7 @@ def findEmployee(user, email):
 
 # Función para actualizar los datos de los empleados
 def updateEmployees(id, user, email, passwd, rol, status):
-    collectionEmployes.update_one(
+    collectionEmployees.update_one(
         {
             "_id": id,
         },
@@ -65,7 +64,7 @@ def updateEmployees(id, user, email, passwd, rol, status):
                 "email": email,
                 "passwd": passwd,
                 "rol": rol,
-                "status":staus,
+                "status": status,
             }
         },
     )
