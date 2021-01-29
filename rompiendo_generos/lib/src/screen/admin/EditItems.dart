@@ -14,12 +14,14 @@ class _EditItemsState extends State<EditItems> {
   // Controladores para TextField
   final name = TextEditingController();
   final user = TextEditingController();
+  final product = TextEditingController();
+  final productID = TextEditingController();
   final email = TextEditingController();
   final passwd = TextEditingController();
   // boleanos para checkbox
-  bool _isCheckedCasher = false;
-  bool _isCheckedWaitter = false;
-  bool _isCheckedChef = false;
+  bool isCheckedCasher = false;
+  bool isCheckedWaitter = false;
+  bool isCheckedChef = false;
   // Variables para almacenamiento de datos ingresados
   String nameText = '';
   String userText = '';
@@ -31,107 +33,13 @@ class _EditItemsState extends State<EditItems> {
   Widget build(BuildContext context) {
     Map argumentsScreen = ModalRoute.of(context).settings.arguments;
     if (argumentsScreen['categorie'] == 'Personal') {
-      return Scaffold(
-        appBar: gradientAppBar(argumentsScreen['text']),
-        body: Container(
-          decoration: background(),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: 10.0,
-              sigmaY: 10.0,
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(
-                  0.0,
-                ),
-              ),
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _userTextField('Pepe Pérez', 'Nombre', name),
-                    _userTextField('UsuarioEjemplo', 'Usuario', user),
-                    _emailTextField(),
-                    _passwdTextField('Contraseña', passwd),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'Roles a desempeñar\n',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                      ),
-                    ),
-                    Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: <Widget>[
-                        Checkbox(
-                          value: _isCheckedCasher,
-                          onChanged: (v) {
-                            setState(
-                              () {
-                                _isCheckedCasher = v;
-                                if (_isCheckedCasher) {
-                                  rol.add('cajero');
-                                } else {
-                                  rol.remove('cajero');
-                                }
-                              },
-                            );
-                          },
-                        ),
-                        Text('Cajero(a)'),
-                        Checkbox(
-                          value: _isCheckedWaitter,
-                          onChanged: (v) {
-                            setState(
-                              () {
-                                _isCheckedWaitter = v;
-                                if (_isCheckedWaitter) {
-                                  rol.add('mesero');
-                                } else {
-                                  rol.remove('mesero');
-                                }
-                              },
-                            );
-                          },
-                        ),
-                        Text('Mesero(a)'),
-                        Checkbox(
-                          value: _isCheckedChef,
-                          onChanged: (v) {
-                            setState(
-                              () {
-                                _isCheckedChef = v;
-                                if (_isCheckedChef) {
-                                  rol.add('cocinero');
-                                } else {
-                                  rol.remove('cocinero');
-                                }
-                              },
-                            );
-                          },
-                        ),
-                        Text('Cocinero(a)')
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _buttonSave(),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
+      return scaffoldEditPersonal(argumentsScreen);
     } else {
       // Fomulario para producto
       return Scaffold(
-        appBar: gradientAppBar("Editando..."),
+        appBar: gradientAppBar(
+          argumentsScreen['text'],
+        ),
         body: Container(
           decoration: background(),
           child: BackdropFilter(
@@ -149,7 +57,20 @@ class _EditItemsState extends State<EditItems> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _userTextField('Ejemplo de producto', 'Producto', user),
+                    userTextField(
+                      'Ejemplo de producto',
+                      'Producto',
+                      product,
+                    ),
+                    userTextField(
+                      'IdentificadorEjemplo',
+                      'ID Producto',
+                      productID,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    buttonSave(),
                   ],
                 ),
               ),
@@ -160,7 +81,107 @@ class _EditItemsState extends State<EditItems> {
     }
   }
 
-  Widget _userTextField(
+  Scaffold scaffoldEditPersonal(Map argumentsScreen) {
+    return Scaffold(
+      appBar: gradientAppBar(argumentsScreen['text']),
+      body: Container(
+        decoration: background(),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 10.0,
+            sigmaY: 10.0,
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(
+                0.0,
+              ),
+            ),
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  userTextField('Pepe Pérez', 'Nombre', name),
+                  userTextField('UsuarioEjemplo', 'Usuario', user),
+                  emailTextField(),
+                  passwdTextField('Contraseña', passwd),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Roles a desempeñar\n',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                    ),
+                  ),
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: <Widget>[
+                      Checkbox(
+                        value: isCheckedCasher,
+                        onChanged: (v) {
+                          setState(
+                            () {
+                              isCheckedCasher = v;
+                              if (isCheckedCasher) {
+                                rol.add('cajero');
+                              } else {
+                                rol.remove('cajero');
+                              }
+                            },
+                          );
+                        },
+                      ),
+                      Text('Cajero(a)'),
+                      Checkbox(
+                        value: isCheckedWaitter,
+                        onChanged: (v) {
+                          setState(
+                            () {
+                              isCheckedWaitter = v;
+                              if (isCheckedWaitter) {
+                                rol.add('mesero');
+                              } else {
+                                rol.remove('mesero');
+                              }
+                            },
+                          );
+                        },
+                      ),
+                      Text('Mesero(a)'),
+                      Checkbox(
+                        value: isCheckedChef,
+                        onChanged: (v) {
+                          setState(
+                            () {
+                              isCheckedChef = v;
+                              if (isCheckedChef) {
+                                rol.add('cocinero');
+                              } else {
+                                rol.remove('cocinero');
+                              }
+                            },
+                          );
+                        },
+                      ),
+                      Text('Cocinero(a)')
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  buttonSave(),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget userTextField(
       String hinttext, String label, TextEditingController control) {
     return StreamBuilder(
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -185,7 +206,7 @@ class _EditItemsState extends State<EditItems> {
     );
   }
 
-  Widget _emailTextField() {
+  Widget emailTextField() {
     return StreamBuilder(
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return Container(
@@ -209,7 +230,7 @@ class _EditItemsState extends State<EditItems> {
     );
   }
 
-  Widget _passwdTextField(String msg, TextEditingController controllerPasswd) {
+  Widget passwdTextField(String msg, TextEditingController controllerPasswd) {
     return StreamBuilder(
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return Container(
@@ -233,7 +254,7 @@ class _EditItemsState extends State<EditItems> {
     );
   }
 
-  Widget _buttonSave() {
+  Widget buttonSave() {
     return StreamBuilder(
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return RaisedButton(
@@ -270,8 +291,8 @@ class _EditItemsState extends State<EditItems> {
                 emailText.isNotEmpty &&
                 passwdText.isNotEmpty &&
                 (rol.length > 0)) {
-              var response = manage.setDataEmployees(
-                  nameText, userText, emailText, passwdText, rol);
+              manage.setDataEmployees(
+                  nameText, userText, emailText, passwdText, rol, 'active');
             } else {
               // Mensaje de alerta
             }

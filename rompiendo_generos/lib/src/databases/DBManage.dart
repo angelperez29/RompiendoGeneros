@@ -6,7 +6,7 @@ import 'dart:io';
 class DBManage {
   String url = 'http://10.0.0.34:8000/';
   Future<String> setDataEmployees(String name, String user, String email,
-      String passwd, List<String> rol) async {
+      String passwd, List<String> rol, String status) async {
     try {
       Map data = {
         'name': name,
@@ -14,6 +14,7 @@ class DBManage {
         'email': email,
         'passwd': passwd,
         'rol': rol,
+        'status': status,
       };
       var body = json.encode(data);
       var response = await http

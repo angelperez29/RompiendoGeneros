@@ -1,13 +1,15 @@
-# Librerias necesarias para wl web service
+# Bibliotecas necesarias para wl web service
 from flask import Flask, render_template, Response, request
 
-# Modulo en donde realizamos las peticiones a MongoDB
-from manageDB import getData, setDataEmployees
+# Modulos en donde realizamos las peticiones a MongoDB
+from Employees import Employees
 
-# Libreria para parsear de bson (formato de MongoDB) a json
+
+# Biblioteca para parsear de bson (formato de MongoDB) a json
 from bson import json_util
 
 app = Flask(__name__)
+employees = Employees()
 
 
 # Ruta principal
@@ -25,7 +27,7 @@ def admin():
 @app.route("/getDataDB/<categorie>", methods=["GET"])
 def getDataDB(categorie):
     categorie.lower()
-    colls = getData(categorie)
+    colls = employees.getData(categorie)
     data = json_util.dumps(colls)
     return Response(data, mimetype="application/json")
 
@@ -39,13 +41,14 @@ def getDataDB(categorie):
 @app.route("/addEmployees", methods=["POST"])
 def addEmployees():
     # Datos recibidos desde post
-    if request.method == 'POST':
+    if request.method == "POST":
         name = request.json["name"]
         user = request.json["user"]
         email = request.json["email"]
         passwd = request.json["passwd"]
         rol = request.json["rol"]
-        setDataEmployees(name, user, email, passwd, rol)
+        status = request.json["status"]
+        employees.setDataEmployees(name, user, email, passwd, rol, status)
     return "202 ok "
 
 
@@ -53,11 +56,6 @@ def addEmployees():
 # podrá realizar los cambios por medio de esta ruta
 @app.route("/updateEmployees", methods=["POST"])
 def updateEmployees():
-    pass
-
-
-@app.route("/employeeResigns", methods=["POST"])
-def method_name():
     pass
 
 
