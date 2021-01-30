@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CardCategories extends StatelessWidget {
+class CardCategoriesEditing extends StatelessWidget {
   final String path;
   final String text;
   final String subtext;
   final String categorie;
   final String route;
 
-  const CardCategories({
+  const CardCategoriesEditing({
     Key key,
     @required this.path,
     @required this.text,
@@ -56,6 +56,12 @@ class CardCategories extends StatelessWidget {
                 this.text,
                 this.path,
               ),
+              _buttonDelete(
+                this.categorie,
+                this.route,
+                this.text,
+                this.path,
+              ),
             ],
           ),
         ],
@@ -72,7 +78,32 @@ Widget _buttonEdit(
     builder: (BuildContext context, AsyncSnapshot snapshot) {
       return IconButton(
         icon: Icon(
-          Icons.arrow_right_alt_rounded,
+          Icons.edit,
+        ),
+        iconSize: 30,
+        tooltip: "Administrar",
+        onPressed: () {
+          Navigator.of(context).pushNamed(
+            route,
+            arguments: {
+              'categorie': categorie,
+              'text': text,
+              'pathIcon': pathIcon,
+            },
+          );
+        },
+      );
+    },
+  );
+}
+
+Widget _buttonDelete(
+    String categorie, String route, String text, String pathIcon) {
+  return StreamBuilder(
+    builder: (BuildContext context, AsyncSnapshot snapshot) {
+      return IconButton(
+        icon: Icon(
+          Icons.delete,
         ),
         iconSize: 30,
         tooltip: "Administrar",
