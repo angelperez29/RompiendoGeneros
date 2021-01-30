@@ -29,7 +29,7 @@ def getDataDB(categorie):
     categorie.lower()
     colls = employees.getData(categorie)
     data = json_util.dumps(colls)
-    return Response(data, mimetype="application/json")
+    return Response(data, status=202, mimetype="application/json")
 
 
 # RUTAS PARA EMPLEADOS
@@ -41,6 +41,25 @@ def getDataDB(categorie):
 @app.route("/addEmployees", methods=["POST"])
 def addEmployees():
     # Datos recibidos desde post
+    try:
+        if request.method == "POST":
+            name = request.json["name"]
+            user = request.json["user"]
+            email = request.json["email"]
+            passwd = request.json["passwd"]
+            rol = request.json["rol"]
+            status = request.json["status"]
+            employees.setDataEmployees(name, user, email, passwd, rol, status)
+        return Response({"message": True}, status=202, mimetype="application/json")
+    except Exception:
+        return Response({"message": False}, status=303, mimetype="application/json")
+
+
+# En caso de que el admin tenga un error al momento de agregar un nuevo empleado, este
+# podrá realizar los cambios por medio de esta ruta
+@app.route("/updateEmployees", methods=["POST"])
+def updateEmployees():
+    # Datos recibidos desde post
     if request.method == "POST":
         name = request.json["name"]
         user = request.json["user"]
@@ -48,15 +67,8 @@ def addEmployees():
         passwd = request.json["passwd"]
         rol = request.json["rol"]
         status = request.json["status"]
-        employees.setDataEmployees(name, user, email, passwd, rol, status)
-    return "202 ok "
-
-
-# En caso de que el admin tenga un error al momento de agregar un nuevo empleado, este
-# podrá realizar los cambios por medio de esta ruta
-@app.route("/updateEmployees", methods=["POST"])
-def updateEmployees():
-    pass
+        employees.updateEmployees(user, name, email, passwd, rol, status)
+    return Response.status_code
 
 
 if __name__ == "__main__":
