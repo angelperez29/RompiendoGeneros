@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:rompiendo_generos/src/components/widgets/Background.dart';
+import 'package:rompiendo_generos/src/components/widgets/NavDrawer.dart';
 import 'package:rompiendo_generos/src/databases/DBManage.dart';
 
 class EditItems extends StatefulWidget {
@@ -18,7 +19,7 @@ class _EditItemsState extends State<EditItems> {
   final passwd = TextEditingController();
   // Controladores para TextField para productos
   final product = TextEditingController();
-  final productID = TextEditingController();
+  final price = TextEditingController();
   // boleanos para checkbox
   bool isCheckedCasher = false;
   bool isCheckedWaitter = false;
@@ -30,7 +31,7 @@ class _EditItemsState extends State<EditItems> {
   String passwdText = '';
   // Variables para almacenamiento de datos ingresados de productos
   String productText = '';
-  String productIDText = '';
+  String priceText = '';
   // Lista para los roles del usuario
   List<String> rol = List();
   @override
@@ -38,7 +39,25 @@ class _EditItemsState extends State<EditItems> {
     Map argumentsScreen = ModalRoute.of(context).settings.arguments;
     if (argumentsScreen['categorie'] == 'Personal') {
       // Formulario para empleados
+      List data = argumentsScreen['data'];
+      if (data.isNotEmpty) {
+        data.forEach(
+          (element) {
+            if (element['_id'] == argumentsScreen['id']) {
+              name.text = element['name'];
+              user.text = element['user'];
+              email.text = element['email'];
+              passwd.text = element['passwd'];
+              List roles = element['rol'];
+              isCheckedWaitter = roles.contains('mesero');
+              isCheckedCasher = roles.contains('cajero');
+              isCheckedChef = roles.contains('cocinero');
+            }
+          },
+        );
+      }
       return Scaffold(
+        drawer: NavDrawer(),
         appBar: gradientAppBar(argumentsScreen['text']),
         body: Container(
           decoration: background(),
@@ -142,6 +161,17 @@ class _EditItemsState extends State<EditItems> {
         ),
       );
     } else {
+      List data = argumentsScreen['data'];
+      if (data.isNotEmpty) {
+        data.forEach(
+          (element) {
+            if (element['_id'] == argumentsScreen['id']) {
+              product.text = element['name'];
+              price.text = element['price'];
+            }
+          },
+        );
+      }
       // Fomulario para producto
       return Scaffold(
         appBar: gradientAppBar(
@@ -166,13 +196,13 @@ class _EditItemsState extends State<EditItems> {
                   children: [
                     userTextField(
                       'Ejemplo de producto',
-                      'Producto',
+                      'Nombre de producto',
                       product,
                     ),
                     userTextField(
-                      'IdentificadorEjemplo',
-                      'ID Producto',
-                      productID,
+                      '15',
+                      'Precio',
+                      price,
                     ),
                     SizedBox(
                       height: 20,
@@ -229,7 +259,7 @@ class _EditItemsState extends State<EditItems> {
             emailText = email.text;
             passwdText = passwd.text;
             productText = product.text;
-            productIDText = productIDText;
+            priceText = price.text;
 
             if (action == 'Agregando...') {
               if (categorie == 'Personal') {
@@ -239,16 +269,50 @@ class _EditItemsState extends State<EditItems> {
                     passwdText.isNotEmpty &&
                     (rol.length > 0)) {
                   var response = await manage.setDataEmployees(
-                      nameText, userText, emailText, passwdText, rol, 'active');
+                    nameText,
+                    userText,
+                    emailText,
+                    passwdText,
+                    rol,
+                    'active',
+                  );
                   if (response.statusCode == 202) {
-                  } else {}
+                    // mensaje de almacenado y regresamos a ItemsOfCategories
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/PanelOfCategories',
+                      (Route<dynamic> route) => false,
+                    );
+                  } else {
+                    // mensaje de error y regresamos permanecemos en este lugar
+                  }
                 } else {
-                  // Mensaje de alerta
-                  print('Agregando personal pero no hay nada en los campos');
+                  // Mensaje de alerta de algún campo vació
                 }
               } else {
-                // productos
-                print('Agregando productos pero no hay nada en los campos');
+                if (productText.isNotEmpty && priceText.isNotEmpty) {
+                  String id = productText.toLowerCase().replaceAll(' ', '') +
+                      categorie.toLowerCase().replaceAll(' ', '') +
+                      priceText;
+
+                  var response = await manage.setDataProducts(
+                    id,
+                    productText,
+                    categorie,
+                    priceText,
+                  );
+                  if (response.statusCode == 202) {
+                    // mensaje de almacenado y regresamos a ItemsOfCategories
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/PanelOfCategories',
+                      (Route<dynamic> route) => false,
+                    );
+                  } else {
+                    // mensaje de error y regresamos permanecemos en este lugar
+                    print('error');
+                  }
+                } else {
+                  //Mensaje de alerta de algún campo vació
+                }
               }
             } else {
               // Actualizando

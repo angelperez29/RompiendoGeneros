@@ -4,7 +4,6 @@ import 'dart:convert';
 
 class DBManage {
   String url = 'http://10.0.0.34:8000/';
-  List data;
   // Metodo para ingresar datos a la DB
   Future<http.Response> setDataEmployees(String name, String user, String email,
       String passwd, List<String> rol, String status) async {
@@ -34,10 +33,25 @@ class DBManage {
     return response;
   }
 
-  // Metodo para obtener datos a la DB
-  Future<List> getData(String url) async {
-    http.Response response = await http.get(url);
-    data = json.decode(response.body);
-    return data;
+  Future<http.Response> setDataProducts(id, name, categorie, price) async {
+    Map data = {
+      'id': id,
+      'name': name,
+      'categorie': categorie,
+      'price': price,
+    };
+
+    var body = json.encode(data);
+
+    http.Response response = await http.post(
+      url + 'setProducts',
+      headers: {
+        "content-type": "application/json",
+        "accept": "application/json",
+      },
+      body: body,
+    );
+
+    return response;
   }
 }

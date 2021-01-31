@@ -6,6 +6,8 @@ class CardCategoriesEditing extends StatelessWidget {
   final String subtext;
   final String categorie;
   final String route;
+  final String id;
+  final List data;
 
   const CardCategoriesEditing({
     Key key,
@@ -14,6 +16,8 @@ class CardCategoriesEditing extends StatelessWidget {
     @required this.subtext,
     @required this.route,
     @required this.categorie,
+    @required this.data,
+    @required this.id,
   }) : super(key: key);
 
   @override
@@ -55,6 +59,8 @@ class CardCategoriesEditing extends StatelessWidget {
                 this.route,
                 this.text,
                 this.path,
+                this.data,
+                this.id,
               ),
               _buttonDelete(
                 this.categorie,
@@ -72,8 +78,8 @@ class CardCategoriesEditing extends StatelessWidget {
   }
 }
 
-Widget _buttonEdit(
-    String categorie, String route, String text, String pathIcon) {
+Widget _buttonEdit(String categorie, String route, String text, String pathIcon,
+    List data, String id) {
   return StreamBuilder(
     builder: (BuildContext context, AsyncSnapshot snapshot) {
       return IconButton(
@@ -89,6 +95,8 @@ Widget _buttonEdit(
               'categorie': categorie,
               'text': text,
               'pathIcon': pathIcon,
+              'data': data,
+              'id': id,
             },
           );
         },

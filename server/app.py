@@ -3,6 +3,7 @@ from flask import Flask, render_template, Response, request
 
 # Modulos en donde realizamos las peticiones a MongoDB
 from Employees import Employees
+from Products import Products
 
 
 # Biblioteca para parsear de bson (formato de MongoDB) a json
@@ -10,6 +11,7 @@ from bson import json_util
 
 app = Flask(__name__)
 employees = Employees()
+products = Products()
 
 
 # Ruta principal
@@ -26,10 +28,23 @@ def admin():
 # Rutas para obtener todos empleados o productos
 @app.route("/getDataDB/<categorie>", methods=["GET"])
 def getDataDB(categorie):
-    categorie.lower()
-    colls = employees.getData(categorie)
-    data = json_util.dumps(colls)
-    return Response(data, status=202, mimetype="application/json")
+    try:
+        categorie.lower()
+        colls = employees.getData(categorie)
+        data = json_util.dumps(colls)
+        return Response(
+            data,
+            status=202,
+            mimetype="application/json",
+        )
+    except Exception:
+        return Response(
+            {
+                "message": "failed connection, please check your url",
+            },
+            status=404,
+            mimetype="application/json",
+        )
 
 
 # RUTAS PARA EMPLEADOS
@@ -50,25 +65,67 @@ def addEmployees():
             rol = request.json["rol"]
             status = request.json["status"]
             employees.setDataEmployees(name, user, email, passwd, rol, status)
-        return Response({"message": True}, status=202, mimetype="application/json")
+        return Response(
+            {"message": True},
+            status=202,
+            mimetype="application/json",
+        )
     except Exception:
-        return Response({"message": False}, status=303, mimetype="application/json")
+        return Response(
+            {"message": False},
+            status=404,
+            mimetype="application/json",
+        )
 
 
 # En caso de que el admin tenga un error al momento de agregar un nuevo empleado, este
 # podrá realizar los cambios por medio de esta ruta
 @app.route("/updateEmployees", methods=["POST"])
 def updateEmployees():
-    # Datos recibidos desde post
-    if request.method == "POST":
-        name = request.json["name"]
-        user = request.json["user"]
-        email = request.json["email"]
-        passwd = request.json["passwd"]
-        rol = request.json["rol"]
-        status = request.json["status"]
-        employees.updateEmployees(user, name, email, passwd, rol, status)
-    return Response.status_code
+    try:
+        # Datos recibidos desde post
+        if request.method == "POST":
+            name = request.json["name"]
+            user = request.json["user"]
+            email = request.json["email"]
+            passwd = request.json["passwd"]
+            rol = request.json["rol"]
+            status = request.json["status"]
+            employees.updateEmployees(user, name, email, passwd, rol, status)
+        return Response(
+            {"message": True},
+            status=202,
+            mimetype="application/json",
+        )
+    except Exception:
+        return Response(
+            {"message": False},
+            status=404,
+            mimetype="application/json",
+        )
+
+
+# Rutas para productos
+@app.route("/setProducts", methods=["POST"])
+def setProducts():
+    try:
+        if request.method == "POST":
+            id = request.json["id"]
+            name = request.json["name"]
+            categorie = request.json["categorie"]
+            price = request.json["price"]
+            products.setDataProduct(id, name, categorie, price)
+        return Response(
+            {"message": True},
+            status=202,
+            mimetype="application/json",
+        )
+    except Exception:
+        return Response(
+            {"message": False},
+            status=404,
+            mimetype="application/json",
+        )
 
 
 if __name__ == "__main__":

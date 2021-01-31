@@ -6,7 +6,7 @@ class Products(General):
 
     # Metodo constructor de la clase
     def __init__(self):
-        super.__init()
+        super().__init__()
         # Definimos la colección de productos
         self.collectionProducts = self.db["products"]
 
@@ -17,11 +17,13 @@ class Products(General):
     # Metodo para almacenar nuevos documentos dentro de las colección de productos
     # este metodo recibe como parametros:
     # nombre del producto  y categoria
-    def setDataProduct(self, product, categorie):
+    def setDataProduct(self, id, name, categorie, price):
         self.collectionProducts.insert_one(
             {
-                "produtc": product,
+                "_id": id,
+                "name": name,
                 "categorie": categorie,
+                "price": price,
             }
         )
 

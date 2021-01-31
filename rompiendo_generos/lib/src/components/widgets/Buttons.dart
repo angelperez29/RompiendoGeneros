@@ -20,11 +20,13 @@ class BottonFloatingAdd extends StatelessWidget {
         Icons.add,
       ),
       onPressed: () {
+        List<dynamic> data = List();
         Navigator.of(context).pushNamed(
           route,
           arguments: {
             'categorie': categorie,
             'text': usrPrd,
+            'data': data,
           },
         );
       },

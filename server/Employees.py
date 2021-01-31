@@ -1,3 +1,4 @@
+# Clase para productos
 from Connection.Principal import General
 
 

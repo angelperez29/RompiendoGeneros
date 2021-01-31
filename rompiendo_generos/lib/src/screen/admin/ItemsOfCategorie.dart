@@ -22,6 +22,7 @@ class _ItemsOfCategorieState extends State<ItemsOfCategorie> {
   List dataP;
   List userDataPrd;
   String url = 'http://10.0.0.34:8000/getDataDB';
+
   getDataEmployees() async {
     http.Response response = await http.get(url + '/employees');
     dataE = json.decode(response.body);
@@ -33,7 +34,7 @@ class _ItemsOfCategorieState extends State<ItemsOfCategorie> {
   }
 
   getDataProducts() async {
-    http.Response response = await http.get(url + '/employees');
+    http.Response response = await http.get(url + '/products');
     dataP = json.decode(response.body);
     setState(
       () {
@@ -53,6 +54,7 @@ class _ItemsOfCategorieState extends State<ItemsOfCategorie> {
   Widget build(BuildContext context) {
     Map argumentsScreen = ModalRoute.of(context).settings.arguments;
     if (argumentsScreen['categorie'] == 'Personal') {
+      // Formulario para empleados
       return Scaffold(
         drawer: NavDrawer(),
         appBar: gradientAppBar(
@@ -72,6 +74,8 @@ class _ItemsOfCategorieState extends State<ItemsOfCategorie> {
                 ),
               ),
               child: ListView.builder(
+                // Si la lista de empleados esta vacia no se muestra nada
+                // dado que pasamos un 0 al index y por ende termina el proceso
                 itemCount: userDataEmy == null ? 0 : userDataEmy.length,
                 itemBuilder: (BuildContext context, int index) {
                   return CardCategoriesEditing(
@@ -82,6 +86,8 @@ class _ItemsOfCategorieState extends State<ItemsOfCategorie> {
                         userDataEmy[index]['email'],
                     route: '/EditItems',
                     categorie: 'Personal',
+                    data: userDataEmy,
+                    id: userDataEmy[index]['_id'],
                   );
                 },
               ),
@@ -97,6 +103,7 @@ class _ItemsOfCategorieState extends State<ItemsOfCategorie> {
         ),
       );
     } else {
+      // Formulario para productos
       return Scaffold(
         drawer: NavDrawer(),
         appBar: gradientAppBar(
@@ -115,35 +122,24 @@ class _ItemsOfCategorieState extends State<ItemsOfCategorie> {
                   0.0,
                 ),
               ),
-              child: GridView.count(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 25.0,
-                ),
-                crossAxisCount: 1,
-                childAspectRatio: 2.1,
-                children: <Widget>[
-                  CardCategoriesEditing(
-                    path: argumentsScreen['pathIcon'],
-                    text: 'Mediana Sol',
-                    subtext: 'Mediana Sol',
-                    route: '/EditItems',
-                    categorie: 'Products',
-                  ),
-                  CardCategoriesEditing(
-                    path: argumentsScreen['pathIcon'],
-                    text: 'Cubeta Medianas XX',
-                    subtext: 'Cubeta Medianas XX',
-                    route: '/EditItems',
-                    categorie: 'Products',
-                  ),
-                  CardCategoriesEditing(
-                    path: argumentsScreen['pathIcon'],
-                    text: 'Cigarros',
-                    subtext: 'Cigarros',
-                    route: '/EditItems',
-                    categorie: 'Products',
-                  ),
-                ],
+              child: ListView.builder(
+                itemCount: userDataPrd == null ? 0 : userDataPrd.length,
+                itemBuilder: (BuildContext context, int index) {
+                  if (userDataPrd[index]['categorie'] ==
+                      argumentsScreen['categorie']) {
+                    return CardCategoriesEditing(
+                      path: argumentsScreen['pathIcon'],
+                      text: userDataPrd[index]['name'],
+                      subtext: '\$' + userDataPrd[index]['price'],
+                      route: '/EditItems',
+                      categorie: argumentsScreen['categorie'],
+                      data: userDataPrd,
+                      id: userDataPrd[index]['_id'],
+                    );
+                  } else {
+                    return Text('');
+                  }
+                },
               ),
             ),
           ),
