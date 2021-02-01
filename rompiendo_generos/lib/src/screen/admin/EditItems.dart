@@ -286,7 +286,7 @@ class _EditItemsState extends State<EditItems> {
                     // mensaje de error y regresamos permanecemos en este lugar
                   }
                 } else {
-                  // Mensaje de alerta de algún campo vació
+                  _showDialog('Atención', 'No puede haber un campo vació');
                 }
               } else {
                 if (productText.isNotEmpty && priceText.isNotEmpty) {
@@ -312,6 +312,7 @@ class _EditItemsState extends State<EditItems> {
                   }
                 } else {
                   //Mensaje de alerta de algún campo vació
+                  _showDialog('Atención', 'No puede haber un campo vació');
                 }
               }
             } else {
@@ -396,6 +397,35 @@ class _EditItemsState extends State<EditItems> {
             ),
             onChanged: (value) {},
           ),
+        );
+      },
+    );
+  }
+
+  void _showDialog(String alert, String notice) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: Text(alert),
+          content: Text(notice),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            FlatButton(
+              child: Text("Acept"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         );
       },
     );
