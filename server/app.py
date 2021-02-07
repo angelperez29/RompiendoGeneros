@@ -14,7 +14,7 @@ employees = Employees()
 products = Products()
 
 
-# Ruta principal
+# Rutas para aplicativo web
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -23,6 +23,33 @@ def index():
 @app.route("/admin")
 def admin():
     return render_template("admin.html")
+
+
+@app.route("/validation", methods=["POST"])
+def validation():
+    try:
+        if request.method == "POST":
+            user = request.form["user"]
+            passwd = request.form["passwd"]
+
+            if user == "admin" and passwd == "Adm1n-$":
+                return render_template("content.html")
+            else:
+                return render_template(
+                    "admin.html", alert="Contraseña o usuario incorrecto"
+                )
+        else:
+            return Response(
+                {"No se recibieron datos"},
+                status=404,
+                mimetype="application/json",
+            )
+    except Exception:
+        return Response(
+            {"Ocurrio un error": "Hola"},
+            status=404,
+            mimetype="application/json",
+        )
 
 
 # Rutas para obtener todos empleados o productos
@@ -115,11 +142,11 @@ def setProducts():
             categorie = request.json["categorie"]
             price = request.json["price"]
             products.setDataProduct(id, name, categorie, price)
-        return Response(
-            {"message": True},
-            status=202,
-            mimetype="application/json",
-        )
+            return Response(
+                {"message": True},
+                status=202,
+                mimetype="application/json",
+            )
     except Exception:
         return Response(
             {"message": False},

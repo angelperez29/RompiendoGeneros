@@ -23,7 +23,7 @@ class _AboutState extends State<About> {
             'Acerca del desarrollador\n' +
                 'Florentino Ángel Pérez Arce\n' +
                 'Contacto: \n' +
-                'Email: dev.angel.p@gmail.com\n' +
+                'Email: angel.perez.29.21@protonmail.com\n' +
                 'LinkedIn: Florentino Ángel Pérez Arce\n',
             style: TextStyle(
               fontSize: 20,

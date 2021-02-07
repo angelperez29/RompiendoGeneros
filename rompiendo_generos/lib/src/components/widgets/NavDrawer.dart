@@ -24,8 +24,8 @@ class NavDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
+            leading: Icon(Icons.info),
+            title: Text('Historial de empleados'),
             onTap: () => {},
           ),
           ListTile(

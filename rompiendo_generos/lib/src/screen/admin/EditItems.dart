@@ -33,7 +33,8 @@ class _EditItemsState extends State<EditItems> {
   String productText = '';
   String priceText = '';
   // Lista para los roles del usuario
-  List<String> rol = List();
+  List rol = List();
+  List roles;
   @override
   Widget build(BuildContext context) {
     Map argumentsScreen = ModalRoute.of(context).settings.arguments;
@@ -48,10 +49,11 @@ class _EditItemsState extends State<EditItems> {
               user.text = element['user'];
               email.text = element['email'];
               passwd.text = element['passwd'];
-              List roles = element['rol'];
-              isCheckedWaitter = roles.contains('mesero');
-              isCheckedCasher = roles.contains('cajero');
-              isCheckedChef = roles.contains('cocinero');
+              setState(
+                () {
+                  rol = element['rol'];
+                },
+              );
             }
           },
         );
@@ -96,9 +98,16 @@ class _EditItemsState extends State<EditItems> {
                         Checkbox(
                           value: isCheckedCasher,
                           onChanged: (v) {
+                            print('Value: ' + v.toString());
+                            print(rol.contains('cajero'));
                             setState(
                               () {
-                                isCheckedCasher = v;
+                                if (rol.contains('cajero') || v) {
+                                  isCheckedCasher = true;
+                                } else {
+                                  isCheckedCasher = false;
+                                }
+                                print(isCheckedCasher);
                                 if (isCheckedCasher) {
                                   rol.add('cajero');
                                 } else {
@@ -106,6 +115,7 @@ class _EditItemsState extends State<EditItems> {
                                 }
                               },
                             );
+                            print(rol);
                           },
                         ),
                         Text('Cajero(a)'),
@@ -278,22 +288,28 @@ class _EditItemsState extends State<EditItems> {
                   );
                   if (response.statusCode == 202) {
                     // mensaje de almacenado y regresamos a ItemsOfCategories
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/PanelOfCategories',
-                      (Route<dynamic> route) => false,
+                    _showDialogSaveOk(
+                      'Excelente, tenemos nuevo personal',
+                      'La información del empleado ha sido almacenado correctamente',
                     );
                   } else {
                     // mensaje de error y regresamos permanecemos en este lugar
+                    _showDialogAlert(
+                      'Atención ',
+                      'Hubo un error al almacenar la información favor de contactar al desarrollador',
+                    );
                   }
                 } else {
-                  _showDialog('Atención', 'No puede haber un campo vació');
+                  _showDialogAlert(
+                    'Atención',
+                    'No puede haber un campo vació',
+                  );
                 }
               } else {
                 if (productText.isNotEmpty && priceText.isNotEmpty) {
                   String id = productText.toLowerCase().replaceAll(' ', '') +
                       categorie.toLowerCase().replaceAll(' ', '') +
                       priceText;
-
                   var response = await manage.setDataProducts(
                     id,
                     productText,
@@ -301,26 +317,93 @@ class _EditItemsState extends State<EditItems> {
                     priceText,
                   );
                   if (response.statusCode == 202) {
-                    // mensaje de almacenado y regresamos a ItemsOfCategories
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/PanelOfCategories',
-                      (Route<dynamic> route) => false,
+                    // mensaje de almacenado y regresamos a ItemsOfCategorie
+                    _showDialogSaveOk(
+                      'Excelente, tenemos más productos',
+                      'La información del producto ha sido almacenado correctamente',
                     );
                   } else {
                     // mensaje de error y regresamos permanecemos en este lugar
-                    print('error');
+                    _showDialogAlert(
+                      'Atención hubo un error al almacenar la información',
+                      'Favor de contactar al desarrollador',
+                    );
                   }
                 } else {
                   //Mensaje de alerta de algún campo vació
-                  _showDialog('Atención', 'No puede haber un campo vació');
+                  _showDialogAlert(
+                    'Atención',
+                    'No puede haber un campo vació',
+                  );
                 }
               }
             } else {
-              // Actualizando
+              // Actualizando la DB
               if (categorie == 'Personal') {
-                print('Actualizado personal pero no hay nada en los campos');
+                // if (nameText.isNotEmpty &&
+                //     userText.isNotEmpty &&
+                //     emailText.isNotEmpty &&
+                //     passwdText.isNotEmpty &&
+                //     (rol.length > 0)) {
+                //   var response = await manage.updateDataEmployees(
+                //     nameText,
+                //     userText,
+                //     emailText,
+                //     passwdText,
+                //     rol,
+                //     'active',
+                //   );
+                //   if (response.statusCode == 202) {
+                //     // mensaje de almacenado y regresamos a ItemsOfCategories
+                //     _showDialogSaveOk(
+                //       'Bien, se actualizo personal',
+                //       'La información del empleado ha sido actualizado correctamente',
+                //     );
+                //   } else {
+                //     // mensaje de error y regresamos permanecemos en este lugar
+                //     _showDialogAlert(
+                //       'Atención ',
+                //       'Hubo un error al actualizar la información favor de contactar al desarrollador',
+                //     );
+                //   }
+                // } else {
+                //   _showDialogAlert(
+                //     'Atención',
+                //     'No puede haber un campo vació',
+                //   );
+                // }
               } else {
                 print('Actualizado productos pero no hay nada en los campos');
+                if (productText.isNotEmpty && priceText.isNotEmpty) {
+                  String id = productText.toLowerCase().replaceAll(' ', '') +
+                      categorie.toLowerCase().replaceAll(' ', '') +
+                      priceText;
+                  var response = await manage.setDataProducts(
+                    id,
+                    productText,
+                    categorie,
+                    priceText,
+                  );
+                  if (response.statusCode == 202) {
+                    // mensaje de almacenado y regresamos a ItemsOfCategorie
+                    _showDialogSaveOk(
+                      'Excelente, tenemos más productos',
+                      'La información del producto ha sido almacenado correctamente',
+                    );
+                  } else {
+                    // mensaje de error y regresamos permanecemos en este lugar
+                    _showDialogAlert(
+                      'Atención hubo un error al almacenar la información',
+                      'Favor de contactar al desarrollador',
+                    );
+                  }
+                } else {
+                  //Mensaje de alerta de algún campo vació
+                  _showDialogAlert(
+                    'Atención',
+                    'No puede haber un campo vació',
+                  );
+                }
               }
             }
           },
@@ -402,7 +485,7 @@ class _EditItemsState extends State<EditItems> {
     );
   }
 
-  void _showDialog(String alert, String notice) {
+  void _showDialogAlert(String alert, String notice) {
     // flutter defined function
     showDialog(
       context: context,
@@ -414,15 +497,35 @@ class _EditItemsState extends State<EditItems> {
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             FlatButton(
-              child: Text("Acept"),
+              child: Text("Aceptar"),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showDialogSaveOk(String alert, String notice) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: Text(alert),
+          content: Text(notice),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
             FlatButton(
-              child: Text("Close"),
+              child: Text("Aceptar"),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/PanelOfCategories',
+                  (Route<dynamic> route) => false,
+                );
               },
             ),
           ],

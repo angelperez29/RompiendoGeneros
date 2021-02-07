@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/logo.ico') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-content.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+    <title>Contenido de la DB</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-md-between pt-5 mt-5 mr-1">
+          <div class="card text-white bg-dark mb-3" style="width: 16rem">
+            <img class="card-img-top" src="{{ url_for('static', filename='images/personal.png') }}" style="width: 120px" alt="Card image cap" />
+            <div class="card-body">
+              <h5 class="card-title">Empleado ejemplo</h5>
+              <p class="card-text">
+                Número de clientes atendidos por este empleado: # </br>
+                Hora de inicio de labores con la app: hh:mm:ss PM/AM </br>
+                Hora de fin de labores con la app: hh:mm:ss PM/AM </br>
+              </p>
+              <a href="#" class="btn btn-primary">Veamos los registros de "Empleado ejemplo"</a>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+
+</html>

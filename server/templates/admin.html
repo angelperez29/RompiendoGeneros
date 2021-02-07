@@ -2,10 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet-admin.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie-edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/logo.ico') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet-admin.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
     <title>LogIn Administration</title>
 </head>
 
@@ -13,19 +15,32 @@
     <div class="container">
         <div class="row justify-content-center pt-5 mt-5 mr-1">
             <div class="col-md-4 form-admin">
-                <form action="">
+                <form action="/validation" method="POST">
                     <div class="form-group text-center pt-3">
                         <h1 class="text-light">Iniciar sesión</h1>
                     </div>
                     <div class="form-group mx-sm-4 pt-3">
-                        <input type="text" class="form-control" placeholder="Ingrese su usuario">
+                        <input type="text" class="form-control" placeholder="Ingrese su usuario" name="user" required />
                     </div>
                     <div class="form-group mx-sm-4 pb-3">
-                        <input type="text" class="form-control" placeholder="Contraseña">
+                        <input type="password" class="form-control" placeholder="Contraseña" name="passwd" required/>
                     </div>
-                    <div class="form-group mx-sm-6 pb-5">
-                        <input type="submit" class="boton btn btn-block" value="Ingresar">
+                    <div class="form-group mx-sm-4 pb-5">
+                        <input type="submit" class="ingresar boton btn btn-block" value="Ingresar" style="
+                  background-color: #f6d9b1;
+                  padding: 10px;
+                  font-size: 16px;
+                  font-weight: 700 !important;
+                  color: #ffffff;
+                  box-shadow: 0 0 30px rgba(0, 0, 0, 0.568);
+                  transition: 0.5s ease-in;
+                " />
                     </div>
+                    {% if alert %}
+                    <div class="alert alert-danger form-group mx-sm-4" role="alert">
+                        {{alert}}
+                    </div>
+                    {% endif %}
                 </form>
             </div>
         </div>

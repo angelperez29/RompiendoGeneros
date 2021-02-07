@@ -1,31 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>Index of page</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
-  </head>
 
-  <body>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Index of page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/icons/logo.ico') }}" />
+</head>
+
+<body>
     <div class="background-text">
-      <h1>This WebService is owned by:</h1>
-      <img
-        class="logo_r"
-        src="{{ url_for('static', filename='images/login.png')}}"
-        alt="RompiendoGeneros"
-        width="600"
-        height="400"
-      />
-      <h2>
-        <a class="textTo" href="/admin">Go to Administration</a>
-      </h2>
+        <h1>This WebService is owned by:</h1>
+        <img class="logo_r" src="{{ url_for('static', filename='images/login.png')}}" alt="RompiendoGeneros" width="600" height="400" />
+        <h2>
+            <a class="textTo" href="/admin">Go to Administration</a>
+        </h2>
     </div>
-  </body>
+</body>
+
 </html>

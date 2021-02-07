@@ -1,0 +1,14 @@
+body {
+    background-image: url(../images/coffee_background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.card-content{
+  background: rgba(0, 0, 0, .3);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, .568);
+  color: #ffffff;
+}
