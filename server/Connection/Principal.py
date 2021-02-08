@@ -15,6 +15,3 @@ class General:
         collection = self.db[col]
         documents = collection.find()
         return documents
-
-    def sayHello(self):
-        print("hello from General")

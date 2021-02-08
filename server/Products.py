@@ -10,10 +10,6 @@ class Products(General):
         # Definimos la colección de productos
         self.collectionProducts = self.db["products"]
 
-    def getProducts(self):
-        documents = self.collectionProducts.find()
-        return documents
-
     # Metodo para almacenar nuevos documentos dentro de las colección de productos
     # este metodo recibe como parametros:
     # nombre del producto  y categoria
@@ -36,19 +32,25 @@ class Products(General):
             }
         )
 
-    # Funcíon para actualizar informacioón de los productos esta recibe como
+    # Metodo para actualizar información de los productos esta recibe como
     # parametro el id del producto a actualizar ademas del nombre del producto
     # y la categoria
-    def updateProduct(self, id, product, categorie):
-        self.collectionProducts.update_one(
-            {
+    def updateProduct(self, id, product, categorie, price):
+        filter = {
+            "_id": id,
+        }
+        values = {
+            "$set": {
                 "_id": id,
-            },
-            {
-                "set": {
-                    "_id": id,
-                    "product": product,
-                    "categorie": categorie,
-                }
-            },
-        )
+                "product": product,
+                "categorie": categorie,
+                "price": price,
+            }
+        }
+        self.collectionProducts.update_one(filter, values)
+
+    def deleteProducts(self, id):
+        filter = {
+            "_id": id,
+        }
+        self.collectionProducts.delete_one(filter)

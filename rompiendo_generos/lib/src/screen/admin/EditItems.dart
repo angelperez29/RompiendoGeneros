@@ -32,9 +32,9 @@ class _EditItemsState extends State<EditItems> {
   // Variables para almacenamiento de datos ingresados de productos
   String productText = '';
   String priceText = '';
+  String idProduct;
   // Lista para los roles del usuario
-  List rol = List();
-  List roles;
+  List<String> rol = List();
   @override
   Widget build(BuildContext context) {
     Map argumentsScreen = ModalRoute.of(context).settings.arguments;
@@ -49,11 +49,19 @@ class _EditItemsState extends State<EditItems> {
               user.text = element['user'];
               email.text = element['email'];
               passwd.text = element['passwd'];
-              setState(
-                () {
-                  rol = element['rol'];
-                },
-              );
+              List roles = element['rol'];
+              print(rol);
+              if (roles.isNotEmpty && rol.isEmpty) {
+                setState(
+                  () {
+                    rol = List<String>.from(roles);
+                    isCheckedCasher = rol.contains('cajero');
+                    isCheckedChef = rol.contains('cocinero');
+                    isCheckedWaitter = rol.contains('mesero');
+                  },
+                );
+                roles.clear();
+              }
             }
           },
         );
@@ -98,16 +106,9 @@ class _EditItemsState extends State<EditItems> {
                         Checkbox(
                           value: isCheckedCasher,
                           onChanged: (v) {
-                            print('Value: ' + v.toString());
-                            print(rol.contains('cajero'));
                             setState(
                               () {
-                                if (rol.contains('cajero') || v) {
-                                  isCheckedCasher = true;
-                                } else {
-                                  isCheckedCasher = false;
-                                }
-                                print(isCheckedCasher);
+                                isCheckedCasher = v;
                                 if (isCheckedCasher) {
                                   rol.add('cajero');
                                 } else {
@@ -115,7 +116,6 @@ class _EditItemsState extends State<EditItems> {
                                 }
                               },
                             );
-                            print(rol);
                           },
                         ),
                         Text('Cajero(a)'),
@@ -178,6 +178,9 @@ class _EditItemsState extends State<EditItems> {
             if (element['_id'] == argumentsScreen['id']) {
               product.text = element['name'];
               price.text = element['price'];
+              setState(() {
+                idProduct = element['_id'];
+              });
             }
           },
         );
@@ -307,11 +310,13 @@ class _EditItemsState extends State<EditItems> {
                 }
               } else {
                 if (productText.isNotEmpty && priceText.isNotEmpty) {
-                  String id = productText.toLowerCase().replaceAll(' ', '') +
-                      categorie.toLowerCase().replaceAll(' ', '') +
-                      priceText;
+                  if (idProduct.isEmpty) {
+                    idProduct = productText.toLowerCase().replaceAll(' ', '') +
+                        categorie.toLowerCase().replaceAll(' ', '') +
+                        priceText;
+                  }
                   var response = await manage.setDataProducts(
-                    id,
+                    idProduct,
                     productText,
                     categorie,
                     priceText,
@@ -340,60 +345,62 @@ class _EditItemsState extends State<EditItems> {
             } else {
               // Actualizando la DB
               if (categorie == 'Personal') {
-                // if (nameText.isNotEmpty &&
-                //     userText.isNotEmpty &&
-                //     emailText.isNotEmpty &&
-                //     passwdText.isNotEmpty &&
-                //     (rol.length > 0)) {
-                //   var response = await manage.updateDataEmployees(
-                //     nameText,
-                //     userText,
-                //     emailText,
-                //     passwdText,
-                //     rol,
-                //     'active',
-                //   );
-                //   if (response.statusCode == 202) {
-                //     // mensaje de almacenado y regresamos a ItemsOfCategories
-                //     _showDialogSaveOk(
-                //       'Bien, se actualizo personal',
-                //       'La información del empleado ha sido actualizado correctamente',
-                //     );
-                //   } else {
-                //     // mensaje de error y regresamos permanecemos en este lugar
-                //     _showDialogAlert(
-                //       'Atención ',
-                //       'Hubo un error al actualizar la información favor de contactar al desarrollador',
-                //     );
-                //   }
-                // } else {
-                //   _showDialogAlert(
-                //     'Atención',
-                //     'No puede haber un campo vació',
-                //   );
-                // }
+                if (nameText.isNotEmpty &&
+                    userText.isNotEmpty &&
+                    emailText.isNotEmpty &&
+                    passwdText.isNotEmpty &&
+                    (rol.length > 0)) {
+                  var response = await manage.updateDataEmployees(
+                    nameText,
+                    userText,
+                    emailText,
+                    passwdText,
+                    rol,
+                    'active',
+                  );
+                  if (response.statusCode == 202) {
+                    // mensaje de almacenado y regresamos a ItemsOfCategories
+                    _showDialogSaveOk(
+                      'Bien, se actualizo personal',
+                      'La información del empleado ha sido actualizado correctamente',
+                    );
+                  } else {
+                    // mensaje de error y regresamos permanecemos en este lugar
+                    _showDialogAlert(
+                      'Atención ',
+                      'Hubo un error al actualizar la información favor de contactar al desarrollador',
+                    );
+                  }
+                } else {
+                  _showDialogAlert(
+                    'Atención',
+                    'No puede haber un campo vació',
+                  );
+                }
               } else {
-                print('Actualizado productos pero no hay nada en los campos');
+                // Actualizado productos
                 if (productText.isNotEmpty && priceText.isNotEmpty) {
-                  String id = productText.toLowerCase().replaceAll(' ', '') +
-                      categorie.toLowerCase().replaceAll(' ', '') +
-                      priceText;
-                  var response = await manage.setDataProducts(
-                    id,
+                  if (idProduct.isEmpty) {
+                    idProduct = productText.toLowerCase().replaceAll(' ', '') +
+                        categorie.toLowerCase().replaceAll(' ', '') +
+                        priceText;
+                  }
+                  var response = await manage.updateDataProducts(
+                    idProduct,
                     productText,
                     categorie,
                     priceText,
                   );
                   if (response.statusCode == 202) {
-                    // mensaje de almacenado y regresamos a ItemsOfCategorie
+                    // mensaje de actualizado y regresamos a ItemsOfCategorie
                     _showDialogSaveOk(
-                      'Excelente, tenemos más productos',
-                      'La información del producto ha sido almacenado correctamente',
+                      'Excelente, actualizado correcto',
+                      'La información del producto ha sido actualizada correctamente',
                     );
                   } else {
                     // mensaje de error y regresamos permanecemos en este lugar
                     _showDialogAlert(
-                      'Atención hubo un error al almacenar la información',
+                      'Atención hubo un error al actualizar la información',
                       'Favor de contactar al desarrollador',
                     );
                   }

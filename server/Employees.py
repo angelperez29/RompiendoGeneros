@@ -36,19 +36,18 @@ class Employees(General):
 
     # Función para actualizar los datos de los empleados
     def updateEmployees(self, user, name, email, passwd, rol, status):
-        self.collectionEmployees.update_one(
-            {
+        filter = {
+            "_id": user,
+        }
+        values = {
+            "$set": {
                 "_id": user,
-            },
-            {
-                "set": {
-                    "_id": user,
-                    "name": name,
-                    "user": user,
-                    "email": email,
-                    "passwd": passwd,
-                    "rol": rol,
-                    "status": status,
-                }
-            },
-        )
+                "name": name,
+                "user": user,
+                "email": email,
+                "passwd": passwd,
+                "rol": rol,
+                "status": status,
+            }
+        }
+        self.collectionEmployees.update_one(filter, values)

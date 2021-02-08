@@ -16,20 +16,14 @@ class DBManage {
       'status': status,
     };
     var body = json.encode(data);
-    http.Response response = await http
-        .post(
-          url + 'addEmployees',
-          headers: {
-            "content-type": "application/json",
-            "accept": "application/json",
-          },
-          body: body,
-        )
-        .timeout(
-          const Duration(
-            seconds: 90,
-          ),
-        );
+    http.Response response = await http.post(
+      url + 'addEmployees',
+      headers: {
+        "content-type": "application/json",
+        "accept": "application/json",
+      },
+      body: body,
+    );
     return response;
   }
 
@@ -45,20 +39,14 @@ class DBManage {
       'status': status,
     };
     var body = json.encode(data);
-    http.Response response = await http
-        .post(
-          url + 'updateEmployees',
-          headers: {
-            "content-type": "application/json",
-            "accept": "application/json",
-          },
-          body: body,
-        )
-        .timeout(
-          const Duration(
-            seconds: 90,
-          ),
-        );
+    http.Response response = await http.post(
+      url + 'updateEmployees',
+      headers: {
+        "content-type": "application/json",
+        "accept": "application/json",
+      },
+      body: body,
+    );
     return response;
   }
 
@@ -94,7 +82,23 @@ class DBManage {
     var body = json.encode(data);
 
     http.Response response = await http.post(
-      url + 'setProducts',
+      url + 'updateProducts',
+      headers: {
+        "content-type": "application/json",
+        "accept": "application/json",
+      },
+      body: body,
+    );
+    return response;
+  }
+
+  Future<http.Response> deleteProduct(id) async {
+    Map filter = {
+      'id': id,
+    };
+    var body = json.encode(filter);
+    http.Response response = await http.post(
+      url + 'deleteProducts',
       headers: {
         "content-type": "application/json",
         "accept": "application/json",

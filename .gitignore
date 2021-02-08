@@ -4,3 +4,4 @@ server/Connection/__pycache__
 server/.rompiendo
 aux_file.py
 rompiendo_generos/.vscode
+server/test.py

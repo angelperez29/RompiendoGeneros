@@ -1,5 +1,5 @@
 # Bibliotecas necesarias para wl web service
-from flask import Flask, render_template, Response, request
+from flask import Flask, render_template, Response, request, jsonify
 
 # Modulos en donde realizamos las peticiones a MongoDB
 from Employees import Employees
@@ -39,17 +39,9 @@ def validation():
                     "admin.html", alert="Contraseña o usuario incorrecto"
                 )
         else:
-            return Response(
-                {"No se recibieron datos"},
-                status=404,
-                mimetype="application/json",
-            )
+            not_found()
     except Exception:
-        return Response(
-            {"Ocurrio un error": "Hola"},
-            status=404,
-            mimetype="application/json",
-        )
+        return not_found()
 
 
 # Rutas para obtener todos empleados o productos
@@ -65,13 +57,7 @@ def getDataDB(categorie):
             mimetype="application/json",
         )
     except Exception:
-        return Response(
-            {
-                "message": "failed connection, please check your url",
-            },
-            status=404,
-            mimetype="application/json",
-        )
+        return not_found()
 
 
 # RUTAS PARA EMPLEADOS
@@ -98,11 +84,7 @@ def addEmployees():
             mimetype="application/json",
         )
     except Exception:
-        return Response(
-            {"message": False},
-            status=404,
-            mimetype="application/json",
-        )
+        return not_found()
 
 
 # En caso de que el admin tenga un error al momento de agregar un nuevo empleado, este
@@ -125,11 +107,7 @@ def updateEmployees():
             mimetype="application/json",
         )
     except Exception:
-        return Response(
-            {"message": False},
-            status=404,
-            mimetype="application/json",
-        )
+        return not_found()
 
 
 # Rutas para productos
@@ -148,11 +126,55 @@ def setProducts():
                 mimetype="application/json",
             )
     except Exception:
-        return Response(
-            {"message": False},
-            status=404,
-            mimetype="application/json",
-        )
+        return not_found()
+
+
+@app.route("/updateProducts", methods=["POST"])
+def updateProducts():
+    try:
+        if request.method == "POST":
+            id = request.json["id"]
+            name = request.json["name"]
+            categorie = request.json["categorie"]
+            price = request.json["price"]
+            products.updateProduct(id, name, categorie, price)
+            return Response(
+                {"message": True},
+                status=202,
+                mimetype="application/json",
+            )
+    except Exception:
+        return not_found()
+
+
+@app.route("/deleteProducts", methods=["POST"])
+def deleteProducts():
+    try:
+        if request.method == "POST":
+            id = request.json["id"]
+            products.deleteProducts(id)
+            return Response(
+                {"message": True},
+                status=202,
+                mimetype="application/json",
+            )
+    except Exception:
+        return not_found()
+
+
+@app.errorhandler(404)
+def not_found():
+    message = jsonify(
+        {
+            "message": "Resource not found" + request.url,
+        }
+    )
+    response = Response(
+        message,
+        status=404,
+        mimetype="application/json",
+    )
+    return response
 
 
 if __name__ == "__main__":

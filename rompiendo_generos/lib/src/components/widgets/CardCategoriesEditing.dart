@@ -114,10 +114,10 @@ Widget _buttonDelete(
           Icons.delete,
         ),
         iconSize: 30,
-        tooltip: "Administrar",
+        tooltip: "Eliminar registro",
         onPressed: () {
           Navigator.of(context).pushNamed(
-            route,
+            'route',
             arguments: {
               'categorie': categorie,
               'text': text,
