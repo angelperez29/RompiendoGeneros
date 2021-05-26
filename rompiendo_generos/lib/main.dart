@@ -6,6 +6,7 @@ import 'src/screen/admin/PanelOfCategories.dart';
 import 'src/screen/admin/ItemsOfCategorie.dart';
 import 'src/screen/admin/AddCategorie.dart';
 import 'src/screen/admin/EditItems.dart';
+import 'src/screen/admin/EmployeesHistorial.dart';
 // Screen para meseros
 import 'src/screen/waiters/SelectAddClient.dart';
 import 'src/screen/waiters/SelectCategorie.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/ItemsOfCategorie': (context) => ItemsOfCategorie(),
         '/AddCategorie': (context) => AddCategorie(),
         '/EditItems': (context) => EditItems(),
+        '/EmployeesHistorial': (contex) => EmployeesHistorial(),
         // Meseros
         '/SelectAddclient': (context) => SelectAddClient(),
         '/SelectCategorie': (context) => SelectCategorie(),

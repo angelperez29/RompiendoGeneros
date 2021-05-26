@@ -3,7 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 
 class DBManage {
-  String url = 'http://10.0.0.34:8000/';
+  String url = 'http://10.21.3.80:8000/';
   // Metodo para ingresar datos a la DB
   Future<http.Response> setDataEmployees(String name, String user, String email,
       String passwd, List<String> rol, String status) async {
@@ -107,4 +107,6 @@ class DBManage {
     );
     return response;
   }
+
+  String getURI() => url;
 }

@@ -10,7 +10,6 @@ class AddCategorie extends StatefulWidget {
 class _AddCategorieState extends State<AddCategorie> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-    );
+    return Container();
   }
 }

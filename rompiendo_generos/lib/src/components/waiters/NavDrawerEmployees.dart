@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class NavDrawer extends StatelessWidget {
+class NavDrawerEmployees extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -28,16 +28,9 @@ class NavDrawer extends StatelessWidget {
             title: Text('Inicio'),
             onTap: () => {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                '/PanelOfCategories',
+                '/SelectAddclient',
                 (Route<dynamic> route) => false,
               )
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.info),
-            title: Text('Historial de empleados'),
-            onTap: () => {
-              Navigator.of(context).pushNamed('/EmployeesHistorial'),
             },
           ),
           ListTile(

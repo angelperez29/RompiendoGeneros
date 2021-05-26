@@ -1,8 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:rompiendo_generos/src/components/widgets/Background.dart';
 import 'package:rompiendo_generos/src/components/widgets/Buttons.dart';
+import 'package:rompiendo_generos/src/components/waiters/NavDrawerEmployees.dart';
 
 class SelectAddClient extends StatefulWidget {
   SelectAddClient({Key key}) : super(key: key);
@@ -16,21 +15,9 @@ class _SelectAddClientState extends State<SelectAddClient> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: gradientAppBar('Seleccione o agregue al cliente'),
+      drawer: NavDrawerEmployees(),
       body: Container(
-        decoration: backgroundImageBlur(),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 10.0,
-            sigmaY: 10.0,
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(
-                0.0,
-              ),
-            ),
-          ),
-        ),
+        decoration: background(),
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,

@@ -5,18 +5,16 @@ import 'dart:ui';
 BoxDecoration background() {
   return BoxDecoration(
     gradient: LinearGradient(
-      begin: Alignment.topRight,
-      end: Alignment.bottomLeft,
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
       colors: [
-        Color.fromARGB(244, 238, 154, 255),
-        Color.fromARGB(255, 255, 255, 255),
-        Color.fromARGB(244, 127, 227, 245),
-        Color.fromARGB(244, 238, 154, 255),
+        Color(0xFFFFDEE9),
+        Color(0xFFFFFFFF),
+        Color(0xFFB5FFFC),
       ],
       stops: [
         0.0,
-        0.2,
-        0.8,
+        0.4,
         0.9,
       ],
     ),

@@ -1,11 +1,11 @@
-import 'dart:ui';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:rompiendo_generos/src/components/widgets/Background.dart';
-import 'package:rompiendo_generos/src/components/widgets/Buttons.dart';
-import 'package:rompiendo_generos/src/components/widgets/CardCategoriesEditing.dart';
-import 'package:rompiendo_generos/src/components/widgets/NavDrawer.dart';
+import '../../components/widgets/Background.dart';
+import '../../components/widgets/Buttons.dart';
+import '../../components/widgets/CardCategoriesEditing.dart';
+import '../../components/widgets/NavDrawer.dart';
+import '../../databases/DBManage.dart';
 
 class ItemsOfCategorie extends StatefulWidget {
   ItemsOfCategorie({
@@ -21,7 +21,7 @@ class _ItemsOfCategorieState extends State<ItemsOfCategorie> {
   List dataE;
   List dataP;
   List userDataPrd;
-  String url = 'http://10.0.0.34:8000/getDataDB';
+  String url = DBManage().getURI() + 'getDataDB';
 
   getDataEmployees() async {
     http.Response response = await http.get(url + '/employees');
@@ -62,22 +62,18 @@ class _ItemsOfCategorieState extends State<ItemsOfCategorie> {
         ),
         body: Container(
           decoration: background(),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: 10.0,
-              sigmaY: 10.0,
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(
-                  0.0,
-                ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(
+                0.0,
               ),
-              child: ListView.builder(
-                // Si la lista de empleados esta vacia no se muestra nada
-                // dado que pasamos un 0 al index y por ende termina el proceso
-                itemCount: userDataEmy == null ? 0 : userDataEmy.length,
-                itemBuilder: (BuildContext context, int index) {
+            ),
+            child: ListView.builder(
+              // Si la lista de empleados esta vacia no se muestra nada
+              // dado que pasamos un 0 al index y por ende termina el proceso
+              itemCount: userDataEmy == null ? 0 : userDataEmy.length,
+              itemBuilder: (BuildContext context, int index) {
+                if (userDataEmy[index]['status'] == 'active') {
                   return CardCategoriesEditing(
                     path: argumentsScreen['pathIcon'],
                     text: userDataEmy[index]['name'],
@@ -88,9 +84,12 @@ class _ItemsOfCategorieState extends State<ItemsOfCategorie> {
                     categorie: 'Personal',
                     data: userDataEmy,
                     id: userDataEmy[index]['_id'],
+                    state: userDataEmy[index]['status'],
                   );
-                },
-              ),
+                } else {
+                  return Text('');
+                }
+              },
             ),
           ),
         ),
@@ -111,36 +110,31 @@ class _ItemsOfCategorieState extends State<ItemsOfCategorie> {
         ),
         body: Container(
           decoration: background(),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: 10.0,
-              sigmaY: 10.0,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(
+                0.0,
+              ),
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(
-                  0.0,
-                ),
-              ),
-              child: ListView.builder(
-                itemCount: userDataPrd == null ? 0 : userDataPrd.length,
-                itemBuilder: (BuildContext context, int index) {
-                  if (userDataPrd[index]['categorie'] ==
-                      argumentsScreen['categorie']) {
-                    return CardCategoriesEditing(
-                      path: argumentsScreen['pathIcon'],
-                      text: userDataPrd[index]['name'],
-                      subtext: '\$' + userDataPrd[index]['price'],
-                      route: '/EditItems',
-                      categorie: argumentsScreen['categorie'],
-                      data: userDataPrd,
-                      id: userDataPrd[index]['_id'],
-                    );
-                  } else {
-                    return Text('');
-                  }
-                },
-              ),
+            child: ListView.builder(
+              itemCount: userDataPrd == null ? 0 : userDataPrd.length,
+              itemBuilder: (BuildContext context, int index) {
+                if (userDataPrd[index]['categorie'] ==
+                    argumentsScreen['categorie']) {
+                  return CardCategoriesEditing(
+                    path: argumentsScreen['pathIcon'],
+                    text: userDataPrd[index]['name'],
+                    subtext: '\$' + userDataPrd[index]['price'],
+                    route: '/EditItems',
+                    categorie: argumentsScreen['categorie'],
+                    data: userDataPrd,
+                    id: userDataPrd[index]['_id'],
+                    state: 'active',
+                  );
+                } else {
+                  return Text('');
+                }
+              },
             ),
           ),
         ),
